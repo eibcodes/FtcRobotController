@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -10,13 +9,9 @@ public class MecanumTeleOp extends OpMode {
     private MecanumDrive drive;
     // todo: write your code here
     private DcMotor intakemotor;
-    private DcMotor shootermotor1;
-    private DcMotor shootermotor2;
-
-    Servo servomotor1;
+    private Shooter shooter;
 
     boolean intakebutton;
-    float shooterbutton;
 
     boolean intakeOn = false;
     boolean lastIntakeButton = false;
@@ -26,16 +21,12 @@ public class MecanumTeleOp extends OpMode {
         drive=new MecanumDrive(hardwareMap);
 
         intakemotor = hardwareMap.get(DcMotor.class, "intakemotor");
-        shootermotor1 = hardwareMap.get(DcMotor.class, "shootermotor1");
-        shootermotor2 = hardwareMap.get(DcMotor.class, "shootermotor2");
-
-        servomotor1 = hardwareMap.get(Servo.class, "servomotor1");
+        shooter = new Shooter(hardwareMap);
 
         intakeOn = false;
         lastIntakeButton = false;
         intakemotor.setPower(0.0); // make sure power is 0
 
-        servomotor1.setPosition(0);
 
         telemetry.addLine("TeleOp ready");
         telemetry.update();
@@ -56,21 +47,24 @@ public class MecanumTeleOp extends OpMode {
         lastIntakeButton = intakebutton;
         intakemotor.setPower(intakeOn ? 1.0 : 0.0); // this is shorthand if statement
 
-        shooterbutton = gamepad1.right_trigger;
-        shootermotor1.setPower(-shooterbutton * 0.5);
-        shootermotor2.setPower(shooterbutton * 0.5);
-
-        if (gamepad1.y) {
-            servomotor1.setPosition(0.0);
-        } else if (gamepad1.x) {
-            servomotor1.setPosition(0.5);
-        }
+        shooter.update(gamepad1.b);
 
         telemetry.addData("Forward", forward);
         telemetry.addData("Strafe", strafe);
         telemetry.addData("Rotate", rotate);
         telemetry.addData("Intake", intakeOn ? "ON" : "OFF");
-        telemetry.addData("Servo Position", servomotor1.getPosition());
+        telemetry.addData("Shooter 1 target / actual", "%.0f / %.0f ticks/s",
+                gamepad1.b ? Shooter.MOTOR_1_TARGET_VELOCITY : 0.0, shooter.getMotor1Velocity());
+        telemetry.addData("Shooter 2 target / actual", "%.0f / %.0f ticks/s",
+                gamepad1.b ? Shooter.MOTOR_2_TARGET_VELOCITY : 0.0, shooter.getMotor2Velocity());
+        telemetry.addData("Shooter Gate", shooter.isGateOpen() ? "OPEN" : "CLOSED");
         telemetry.update();
+    }
+
+    @Override
+    public void stop() {
+        shooter.stop();
+        intakemotor.setPower(0.0);
+        drive.stop();
     }
 }
