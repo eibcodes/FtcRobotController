@@ -6,15 +6,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class MecanumDrive {
 
-
-
     private DcMotor frontleftmotor;
     private DcMotor frontrightmotor;
     private DcMotor backleftmotor;
     private DcMotor backrightmotor;
-
-
-
 
     public MecanumDrive(HardwareMap hardwareMap) {
 
