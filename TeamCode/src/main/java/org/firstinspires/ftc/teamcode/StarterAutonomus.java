@@ -28,6 +28,7 @@ public class StarterAutonomus extends OpMode {
     public static final int[] BLUE_AUDIENCE_CELL = {38, 39, 40, 41};
     public static final int[] BLUE_SCORING_CELL  = {42, 43, 44, 45};
 
+
     private enum State {
         LEAVE, SEARCH, APPROACH, AQUIRE, POSITION, SHOOT, PARK, DONE
     }
