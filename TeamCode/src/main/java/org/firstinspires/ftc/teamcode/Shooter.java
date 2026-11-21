@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Shooter {
-    public static final double MOTOR_1_TARGET_VELOCITY = -1000.0;
-    public static final double MOTOR_2_TARGET_VELOCITY = 1000.0;
+    public static final double MOTOR_1_TARGET_VELOCITY = -600.0;
+    public static final double MOTOR_2_TARGET_VELOCITY = 600.0;
     public static final double VELOCITY_TOLERANCE = 0.05;
     public static final double GATE_CLOSED_POSITION = 0.2;
     public static final double GATE_OPEN_POSITION = 0.4;
