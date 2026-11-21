@@ -4,9 +4,29 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+// https://www.youtube.com/watch?v=cGE30PPDXbo
+
 @Autonomous(name="Starter FSM by EB")
 public class StarterAutonomus extends OpMode {
     private MecanumDrive drive;
+
+    // All 16 BIOBUZZ AprilTag IDs (36h11 family)
+    public static final int[] ALL_BIOBUZZ_TAGS = {
+            30, 31, 32, 33, // Red Scoring (opposite audience)
+            34, 35, 36, 37, // Red Audience
+            38, 39, 40, 41, // Blue Audience
+            42, 43, 44, 45  // Blue Scoring (opposite audience)
+    };
+
+    // Grouped by Alliance
+    public static final int[] RED_ALLIANCE_TAGS  = {30, 31, 32, 33, 34, 35, 36, 37};
+    public static final int[] BLUE_ALLIANCE_TAGS = {38, 39, 40, 41, 42, 43, 44, 45};
+
+    // Grouped by HIVE CELL Cluster (4 tags per cell)
+    public static final int[] RED_SCORING_CELL  = {30, 31, 32, 33};
+    public static final int[] RED_AUDIENCE_CELL = {34, 35, 36, 37};
+    public static final int[] BLUE_AUDIENCE_CELL = {38, 39, 40, 41};
+    public static final int[] BLUE_SCORING_CELL  = {42, 43, 44, 45};
 
     private enum State {
         LEAVE, SEARCH, APPROACH, AQUIRE, POSITION, SHOOT, PARK, DONE
