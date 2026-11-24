@@ -14,13 +14,13 @@ public class Shooter {
 
     private final DcMotorEx shooterMotor1;
     private final DcMotorEx shooterMotor2;
-    private final Servo gate;
-    private boolean gateOpen;
+//    private final Servo gate;
+  //  private boolean gateOpen;
 
     public Shooter(HardwareMap hardwareMap) {
         shooterMotor1 = hardwareMap.get(DcMotorEx.class, "shootermotor1");
         shooterMotor2 = hardwareMap.get(DcMotorEx.class, "shootermotor2");
-        gate = hardwareMap.get(Servo.class, "servo");
+    //    gate = hardwareMap.get(Servo.class, "servo");
         shooterMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         shooterMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         stop();
@@ -34,16 +34,16 @@ public class Shooter {
 
         shooterMotor1.setVelocity(MOTOR_1_TARGET_VELOCITY);
         shooterMotor2.setVelocity(MOTOR_2_TARGET_VELOCITY);
-        gateOpen = Math.abs(getMotor1Velocity() - MOTOR_1_TARGET_VELOCITY)
-                <= Math.abs(MOTOR_1_TARGET_VELOCITY) * VELOCITY_TOLERANCE
-                && Math.abs(getMotor2Velocity() - MOTOR_2_TARGET_VELOCITY)
-                <= Math.abs(MOTOR_2_TARGET_VELOCITY) * VELOCITY_TOLERANCE;
-        gate.setPosition(gateOpen ? GATE_OPEN_POSITION : GATE_CLOSED_POSITION);
+      //  gateOpen = Math.abs(getMotor1Velocity() - MOTOR_1_TARGET_VELOCITY)
+        //        <= Math.abs(MOTOR_1_TARGET_VELOCITY) * VELOCITY_TOLERANCE
+          //      && Math.abs(getMotor2Velocity() - MOTOR_2_TARGET_VELOCITY)
+            //    <= Math.abs(MOTOR_2_TARGET_VELOCITY) * VELOCITY_TOLERANCE;
+        //gate.setPosition(gateOpen ? GATE_OPEN_POSITION : GATE_CLOSED_POSITION);
     }
 
     public void stop() {
-        gateOpen = false;
-        gate.setPosition(GATE_CLOSED_POSITION);
+        //gateOpen = false;
+        //gate.setPosition(GATE_CLOSED_POSITION);
         shooterMotor1.setVelocity(0.0);
         shooterMotor2.setVelocity(0.0);
         shooterMotor1.setPower(0.0);
@@ -58,7 +58,7 @@ public class Shooter {
         return shooterMotor2.getVelocity();
     }
 
-    public boolean isGateOpen() {
-        return gateOpen;
-    }
+    //public boolean isGateOpen() {
+      //  return gateOpen;
+    //}
 }
